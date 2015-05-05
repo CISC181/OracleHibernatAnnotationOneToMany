@@ -24,8 +24,10 @@ import javax.persistence.UniqueConstraint;
 		@UniqueConstraint(columnNames = "STOCK_CODE") })
 public class Stock implements java.io.Serializable {
  
+
+	private String CreatedBy;
 	private Integer stockId;
-	private String stockCode;
+	private String StockCode;
 	private String stockName;
 	private Set<StockDailyRecord> stockDailyRecords = new HashSet<StockDailyRecord>(
 			0);
@@ -34,13 +36,13 @@ public class Stock implements java.io.Serializable {
 	}
  
 	public Stock(String stockCode, String stockName) {
-		this.stockCode = stockCode;
+		this.StockCode = stockCode;
 		this.stockName = stockName;
 	}
  
 	public Stock(String stockCode, String stockName,
 			Set<StockDailyRecord> stockDailyRecords) {
-		this.stockCode = stockCode;
+		this.StockCode = stockCode;
 		this.stockName = stockName;
 		this.stockDailyRecords = stockDailyRecords;
 	}
@@ -60,14 +62,7 @@ public class Stock implements java.io.Serializable {
 		this.stockId = stockId;
 	}
  
-	@Column(name = "STOCK_CODE", unique = true, nullable = false, length = 10)
-	public String getStockCode() {
-		return this.stockCode;
-	}
  
-	public void setStockCode(String stockCode) {
-		this.stockCode = stockCode;
-	}
  
 	@Column(name = "STOCK_NAME", unique = true, nullable = false, length = 20)
 	public String getStockName() {
@@ -78,6 +73,26 @@ public class Stock implements java.io.Serializable {
 		this.stockName = stockName;
 	}
  
+	@Column(name = "Stock_Code",  nullable = true, length = 20)
+	public String getStockCode() {
+		return this.StockCode;
+	}
+ 
+	public void setStockCode(String StockCode) {
+		this.StockCode = StockCode;
+	}
+	
+	
+	@Column(name = "CreatedBy",  nullable = true, length = 20)
+	public String getCreatedBy() {
+		return this.CreatedBy;
+	}
+ 
+	public void setCreatedBy(String CreatedBy) {
+		this.CreatedBy = CreatedBy;
+	}
+	
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "stock")
 	public Set<StockDailyRecord> getStockDailyRecords() {
 		return this.stockDailyRecords;
